@@ -1,17 +1,13 @@
+from bot import send_message
+from leagues import accepted_leagues
 
-import os
-import requests
-from telegram import Bot
-
-BOT_TOKEN = os.getenv("BOT_TOKEN")
-CHAT_ID = os.getenv("CHAT_ID")
-
-def send_message(message):
-    bot = Bot(token=BOT_TOKEN)
-    bot.send_message(chat_id=CHAT_ID, text=message)
+def check_matches():
+    # Dummy data, replace with real match and odds fetching
+    matches = [{"league": "Albania 1. Division", "home_team": "Team A", "away_team": "Team B", "home_odds": 2.10}]
+    for match in matches:
+        if match["league"] in accepted_leagues and match["home_odds"] > 2.0:
+            msg = f"Match: {match['home_team']} vs {match['away_team']}\nLeague: {match['league']}\nHome Odds: {match['home_odds']}"
+            send_message(msg)
 
 if __name__ == "__main__":
-    try:
-        send_message("Burunc30 Bot is running successfully on Heroku!")
-    except Exception as e:
-        print("Error sending message:", str(e))
+    check_matches()
