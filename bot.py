@@ -5,4 +5,6 @@ def send_message(text):
     CHAT_ID = "1488455191"
     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
     payload = {"chat_id": CHAT_ID, "text": text, "parse_mode": "HTML"}
-    requests.post(url, data=payload)
+    response = requests.post(url, data=payload)
+    print(f"Telegram cavabı: {response.status_code}, {response.text}")
+    return response
