@@ -1,12 +1,9 @@
 from bot import send_message
-import requests
 
-print("Burunc30 system starting...")
+print('Burunc30 system starting...')
 
 try:
-    response = send_message("Test mesajı: Burunc30 sistemi Heroku üzərində uğurla işə düşdü!")
-    print("Mesaj göndərildi.")
-except requests.exceptions.RequestException as e:
-    print(f"Xəta: {e}")
-
-print("Burunc30 system running.")
+    send_message("Test mesajı: Burunc30 sistemi Heroku üzərində uğurla işə düşdü!")
+    print('Telegram mesajı uğurla göndərildi.')
+except Exception as e:
+    print(f'Telegram mesajı göndərilə bilmədi. Xəta: {e}')
