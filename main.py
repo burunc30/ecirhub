@@ -1,30 +1,31 @@
 from bot import send_message
-from odds_api import (
+from filters import (
     filter_1_btts_under25,
     filter_2_contradiction_1x2_htft,
     filter_3_1x2_vs_dnb,
-    filter_4_half_odds_contradiction,
-    filter_6z_home_odds_gt_2
+    filter_4_half_odds_contradiction
 )
 
-send_message("Burunc30 sistemi Heroku üzərində yenilənmiş filtrlərlə işə düşdü!")
+send_message("Burunc30 sistemi Heroku üzərində işə başladı!")
 
-filters = {
-    "Filter 1 (BTTS + Under 2.5)": filter_1_btts_under25,
-    "Filter 2 (1X2 vs HT/FT)": filter_2_contradiction_1x2_htft,
-    "Filter 3 (1X2 vs DNB)": filter_3_1x2_vs_dnb,
-    "Filter 4 (1X2 vs Half Odds)": filter_4_half_odds_contradiction,
-    "Filter 6Z (Home odds > 2.0)": filter_6z_home_odds_gt_2
-}
+# Filter 1: BTTS + Under 2.5
+matches_1 = filter_1_btts_under25()
+for match in matches_1:
+    send_message(f"Filter 1: {match['home']} vs {match['away']} | Odds: {match['odds']} | Time: {match['time']}")
 
-for name, func in filters.items():
-    try:
-        matches = func()
-        if matches:
-            for m in matches:
-                msg = f"**{name}**\n⚽ {m['home']} vs {m['away']}\nVaxt: {m['time']}\nƏmsallar: {m['odds']}"
-                send_message(msg)
-        else:
-            send_message(f"{name} üçün uyğun oyun tapılmadı.")
-    except Exception as e:
-        send_message(f"{name} üçün xəta: {e}")
+# Filter 2: 1X2 vs HT/FT contradiction
+matches_2 = filter_2_contradiction_1x2_htft()
+for match in matches_2:
+    send_message(f"Filter 2: {match['home']} vs {match['away']} | Odds: {match['odds']} | Time: {match['time']}")
+
+# Filter 3: 1X2 vs Draw No Bet
+matches_3 = filter_3_1x2_vs_dnb()
+for match in matches_3:
+    send_message(f"Filter 3: {match['home']} vs {match['away']} | Odds: {match['odds']} | Time: {match['time']}")
+
+# Filter 4: 1X2 vs Half odds contradiction
+matches_4 = filter_4_half_odds_contradiction()
+for match in matches_4:
+    send_message(f"Filter 4: {match['home']} vs {match['away']} | Odds: {match['odds']} | Time: {match['time']}")
+
+print("Burunc30 system finished run.")
