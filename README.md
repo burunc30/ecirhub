@@ -1,2 +1,2 @@
-# Burunc30 Final Bot
-This bot filters matches and sends results to Telegram based on 5 filters.
+# Burunc30 Combined System
+Automated filtering from OddsAPI and 1xBet with 5 filters.
