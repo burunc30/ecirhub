@@ -1,19 +1,12 @@
-def filter_1x2_and_btts(match):
-    return match.get("1x2") and match.get("btts") == "Yes"
-
-def filter_odds_conflict(match):
-    return match.get("1x2") and match.get("ht_ft") and match["1x2"] != match["ht_ft"]
-
-def filter_draw_no_bet_conflict(match):
-    return match.get("1x2") and match.get("dnb") and match["1x2"]["fav"] != match["dnb"]["fav"]
-
-def filter_half_conflict(match):
-    return match.get("1x2") and (match.get("first_half") or match.get("second_half"))
-
 def apply_all_filters(matches):
     results = []
-    for m in matches:
-        if (filter_1x2_and_btts(m) or filter_odds_conflict(m) or
-            filter_draw_no_bet_conflict(m) or filter_half_conflict(m)):
-            results.append(m)
+    for match in matches:
+        if match.get('1x2') == 'fav_A' and match.get('BTTS') == 'Yes':
+            results.append(f"{match['teams']}\n1x2: {match['1x2']}\nBTTS: {match['BTTS']}")
+        elif match.get('HTFT') == 'contradiction':
+            results.append(f"{match['teams']}\nHT/FT: Contradiction")
+        elif match.get('dnb') == 'reverse_fav':
+            results.append(f"{match['teams']}\nDraw No Bet reversal")
+        elif match.get('halves') == 'reverse_fav':
+            results.append(f"{match['teams']}\n1H/2H odds reversal")
     return results
