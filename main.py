@@ -1,5 +1,5 @@
-import requests import time
-
+import requests
+import time
 API və Telegram məlumatları
 
 ODDS_API_KEY = "bf9ad2afed0d379aa0fa2f756dc58ff2" TELEGRAM_BOT_TOKEN = "8106341353:AAFIi3nfPOlydtCM_eYHiSIbDR0C1RFoaG4" CHAT_ID = "1488455191"
