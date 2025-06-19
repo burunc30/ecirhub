@@ -1,0 +1,23 @@
+name: OddsAPI Test
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-oddsapi:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Kodu yüklə
+        uses: actions/checkout@v3
+
+      - name: Python quraşdır
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Asılılıqları quraşdır
+        run: pip install requests
+
+      - name: OddsAPI Testi işə sal
+        run: python oddsapi_test.py
